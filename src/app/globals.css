@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 86% 90%; /* Pale beige / ivory #FCEFCB */
+    --foreground: 30 60% 20%; /* Dark brown for text */
+
+    --card: 38 75% 94%; /* Off-white/pale gold, e.g., FDF5E6 */
+    --card-foreground: 30 60% 20%;
+
+    --popover: 38 75% 94%;
+    --popover-foreground: 30 60% 20%;
+
+    --primary: 30 63% 40%; /* Deep gold / bronze #A86523 */
+    --primary-foreground: 40 86% 95%; /* Very light, contrast for deep gold */
+
+    --secondary: 40 83% 51%; /* Bright golden yellow #E9A319 */
+    --secondary-foreground: 30 60% 15%; /* Darker for better contrast on bright gold */
+
+    --muted: 40 86% 85%; /* Muted version of background */
+    --muted-foreground: 30 50% 40%; /* Muted text color */
+
+    --accent: 40 83% 51%; /* Bright golden yellow #E9A319 */
+    --accent-foreground: 30 60% 15%; /* Darker for contrast */
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 37 80% 80%; /* Softer border from #FAD59A */
+    --input: 40 86% 88%; /* Input background slightly different from main bg */
+    --ring: 30 63% 50%; /* Ring from primary */
+    
+    --chart-1: 30 70% 50%; /* Gold-themed chart colors */
+    --chart-2: 40 75% 55%;
+    --chart-3: 35 65% 45%;
+    --chart-4: 45 80% 60%;
+    --chart-5: 25 70% 40%;
+    --radius: 0.5rem;
+
+    /* Sidebar variables */
+    --sidebar-background: 40 86% 92%; 
+    --sidebar-foreground: 30 60% 20%;
+    --sidebar-primary: 30 63% 40%;
+    --sidebar-primary-foreground: 40 86% 95%;
+    --sidebar-accent: 37 91% 82%; /* Soft, creamy gold #FAD59A for active/hover */
+    --sidebar-accent-foreground: 30 63% 35%; /* Darker gold text on sidebar accent */
+    --sidebar-border: 37 80% 80%;
+    --sidebar-ring: 30 63% 50%;
+  }
+
+  .dark {
+    --background: 30 30% 10%; /* Dark bronze-brown */
+    --foreground: 37 80% 85%; /* Light creamy gold text */
+
+    --card: 30 30% 13%; 
+    --card-foreground: 37 80% 85%;
+
+    --popover: 30 30% 13%;
+    --popover-foreground: 37 80% 85%;
+
+    --primary: 40 83% 61%; /* Brighter #E9A319 for dark mode primary */
+    --primary-foreground: 30 40% 15%; /* Dark text on brighter gold */
+
+    --secondary: 30 63% 50%; /* Brighter #A86523 for dark mode secondary */
+    --secondary-foreground: 37 80% 90%; /* Light text */
+
+    --muted: 30 25% 18%;
+    --muted-foreground: 37 60% 65%;
+
+    --accent: 40 83% 61%; 
+    --accent-foreground: 30 40% 15%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 30 25% 22%;
+    --input: 30 25% 20%;
+    --ring: 40 83% 71%;
+    
+    /* Dark Sidebar variables */
+    --sidebar-background: 30 30% 12%;
+    --sidebar-foreground: 37 80% 85%;
+    --sidebar-primary: 40 83% 61%;
+    --sidebar-primary-foreground: 30 40% 15%;
+    --sidebar-accent: 30 40% 25%; /* Muted gold accent for dark sidebar */
+    --sidebar-accent-foreground: 40 83% 70%; /* Brighter gold text on accent */
+    --sidebar-border: 30 25% 22%;
+    --sidebar-ring: 40 83% 71%;
+
+    --chart-1: 30 70% 70%;
+    --chart-2: 40 75% 75%;
+    --chart-3: 35 65% 65%;
+    --chart-4: 45 80% 80%;
+    --chart-5: 25 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Golden Palette */
+:root {
+  --color-gold-lightest: #FDF6E3;
+  --color-gold-light: #F5E6CC;
+  --color-gold-medium: #DAA520;
+  --color-gold-dark: #B8860B;
+  --color-gold-darkest: #8B6914;
+  --color-gold-text: #4A3605;
+}
+
+/* A4 Paper Dimensions */
+.invoice-preview {
+  /* A4 dimensions in pixels at 96 DPI */
+  width: 210mm;
+  min-height: 297mm;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 20mm;
+  background-color: var(--color-gold-lightest);
+  color: var(--color-gold-text);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.invoice-preview h1 {
+  color: var(--color-gold-dark);
+}
+
+.invoice-preview thead {
+  background-color: var(--color-gold-light);
+}
+
+.invoice-preview tbody tr:nth-child(even) {
+  background-color: var(--color-gold-lightest);
+}
+
+.invoice-preview tbody tr:nth-child(odd) {
+  background-color: #FFFFFF;
+}
+
+.invoice-preview .border-gray-200 {
+  border-color: var(--color-gold-light);
+}
+
+@media screen {
+  .invoice-preview {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    border: 1px solid #e0e0e0;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: white;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .invoice-preview {
+    width: 210mm;
+    min-height: 297mm;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 15mm !important;
+    page-break-inside: avoid;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}
