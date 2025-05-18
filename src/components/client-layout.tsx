@@ -1,4 +1,3 @@
-
 "use client";
 
 import type { ReactNode } from 'react';
@@ -29,9 +28,11 @@ import {
   UserCircle,
   HelpCircle,
   Loader2,
+  Wallet
 } from 'lucide-react';
 import { useSidebar } from '@/components/ui/sidebar';
 import { useState, useEffect } from 'react';
+import { Toaster } from '@/components/ui/toaster';
 
 const menuItems = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -41,6 +42,7 @@ const menuItems = [
   { href: "/items", label: "Items / Services", icon: Package },
   { href: "/transactions", label: "Transactions", icon: Repeat },
   { href: "/templates", label: "Templates", icon: LayoutGrid },
+  { href: "/expenses", label: "Expenses", icon: Wallet },
   { href: "/settings", label: "Settings", icon: SettingsIcon },
   { href: "/account", label: "Account", icon: UserCircle },
   { href: "/help", label: "Help / Support", icon: HelpCircle },
@@ -237,6 +239,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             </p>
         </footer>
       </SidebarInset>
+      <Toaster />
     </SidebarProvider>
   );
 }
