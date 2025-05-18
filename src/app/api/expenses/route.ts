@@ -1,13 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { db } from '@/lib/db';
-import { expenses } from '@/lib/db/schema';
-import { eq } from 'drizzle-orm';
+
+// Expense interface
+interface Expense {
+  id?: number;
+  title: string;
+  amount: number;
+  category: string;
+  description?: string;
+  userId: string;
+  date?: Date;
+}
 
 // GET all expenses
 export async function GET() {
   try {
-    const allExpenses = await db.select().from(expenses).orderBy(expenses.date);
-    return NextResponse.json(allExpenses);
+    // In a real-world scenario, you'd want to implement server-side storage or authentication
+    const expensesJson = typeof window !== 'undefined' 
+      ? localStorage.getItem('expenses') 
+      : null;
+    
+    const expenses: Expense[] = expensesJson 
+      ? JSON.parse(expensesJson) 
+      : [];
+
+    return NextResponse.json(expenses);
   } catch (error) {
     console.error('Error fetching expenses:', error);
     return NextResponse.json(
@@ -20,7 +36,7 @@ export async function GET() {
 // POST new expense
 export async function POST(request: NextRequest) {
   try {
-    const expenseData = await request.json();
+    const expenseData: Expense = await request.json();
     
     // Validate input
     if (!expenseData.title || !expenseData.amount || !expenseData.category) {
@@ -30,16 +46,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Insert expense (assuming user authentication is handled elsewhere)
-    const newExpense = await db.insert(expenses).values({
-      title: expenseData.title,
-      amount: expenseData.amount,
-      category: expenseData.category,
-      description: expenseData.description || null,
-      userId: 'user_placeholder' // Replace with actual user ID from auth
-    }).returning();
+    // In a real-world scenario, you'd want to implement server-side storage or authentication
+    const expensesJson = typeof window !== 'undefined' 
+      ? localStorage.getItem('expenses') 
+      : null;
+    
+    const expenses: Expense[] = expensesJson 
+      ? JSON.parse(expensesJson) 
+      : [];
 
-    return NextResponse.json(newExpense[0], { status: 201 });
+    // Generate a new ID
+    const newExpense: Expense = {
+      ...expenseData,
+      id: expenses.length > 0 
+        ? Math.max(...expenses.map(e => e.id || 0)) + 1 
+        : 1,
+      date: new Date(),
+      userId: 'user_placeholder' // Replace with actual user ID from auth
+    };
+
+    expenses.push(newExpense);
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+    }
+
+    return NextResponse.json(newExpense, { status: 201 });
   } catch (error) {
     console.error('Error creating expense:', error);
     return NextResponse.json(
@@ -62,7 +94,21 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    await db.delete(expenses).where(eq(expenses.id, parseInt(id)));
+    // In a real-world scenario, you'd want to implement server-side storage or authentication
+    const expensesJson = typeof window !== 'undefined' 
+      ? localStorage.getItem('expenses') 
+      : null;
+    
+    let expenses: Expense[] = expensesJson 
+      ? JSON.parse(expensesJson) 
+      : [];
+
+    // Remove the expense with the given ID
+    expenses = expenses.filter(expense => expense.id !== parseInt(id));
+
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('expenses', JSON.stringify(expenses));
+    }
 
     return NextResponse.json(
       { message: 'Expense deleted successfully' }, 
