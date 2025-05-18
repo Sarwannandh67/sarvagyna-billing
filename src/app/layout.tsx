@@ -1,18 +1,13 @@
-
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import ClientLayout from '@/components/client-layout';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const poppins = Poppins({
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-poppins',
 });
 
 export const metadata: Metadata = {
@@ -21,15 +16,15 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon1.png', type: 'image/png' }
+      { url: '/logo-symbol.png', type: 'image/png' }
     ],
     apple: [
-      { url: '/apple-icon.png' }
+      { url: '/logo-symbol.png' }
     ],
     other: [
       {
         rel: 'mask-icon',
-        url: '/icon0.svg',
+        url: '/logo-no-background.svg',
       }
     ]
   },
@@ -37,9 +32,9 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: 'Sarvagyna',
+    title: 'SarvBill',
   },
-  applicationName: 'Sarvagyna Billing',
+  applicationName: 'SarvBill',
   keywords: ['billing', 'invoice', 'sarvagyna'],
   creator: 'Sarvagyna',
   publisher: 'Sarvagyna',
@@ -51,11 +46,11 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Sarvagyna Billing',
+    title: 'SarvBill',
     description: 'Modern Invoicing Application',
     images: [
       {
-        url: '/sarvagyna-logo.png',
+        url: '/logo-full.png',
         width: 800,
         height: 600,
       }
@@ -65,9 +60,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Sarvagyna Billing',
+    title: 'SarvBill',
     description: 'Modern Invoicing Application',
-    images: ['/sarvagyna-logo.png'],
+    images: ['/logo-no-background.png'],
   },
 };
 
@@ -80,11 +75,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
+        <link rel="apple-touch-icon" href="/logo-symbol.png" />
         <link rel="manifest" href="/manifest.json" />
+        <meta name="apple-mobile-web-app-title" content="SarvBill" />
       </head>
       <body 
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background text-foreground`}
+        className={`${poppins.variable} font-sans antialiased bg-background text-foreground`}
         suppressHydrationWarning // Add this line
       >
         <ClientLayout>{children}</ClientLayout>

@@ -64,7 +64,7 @@ function AppLogo() {
         aria-label="Sarvagyna Home"
       >
         <Image
-          src="/sarvagyna-logo-symbol.png"
+          src="/logo-symbol.png"
           alt="Sarvagyna Symbol"
           width={28}
           height={28}
@@ -76,7 +76,7 @@ function AppLogo() {
     );
   }
 
-  const logoSrc = state === 'expanded' ? "/sarvagyna-logo.png" : "/sarvagyna-logo-symbol.png";
+  const logoSrc = state === 'expanded' ? "/logo-full.png" : "/logo-symbol.png";
   const altText = state === 'expanded' ? "Sarvagyna Full Logo" : "Sarvagyna Symbol";
   const width = state === 'expanded' ? 160 : 28;
   const height = state === 'expanded' ? 31 : 28; 
@@ -157,7 +157,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         <header className="py-8 px-4 flex justify-center items-center border-b">
             <Link href="/" aria-label="Sarvagyna Home">
             <Image
-                src="/sarvagyna-logo.png"
+                src="/logo-full.png"
                 alt="Sarvagyna"
                 width={200}
                 height={39}
@@ -172,10 +172,10 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         </main>
         <footer className="w-full p-4 md:p-6 text-center text-xs text-muted-foreground border-t">
             <p>
-                Sarvagyna Billing is Powered by <a href="https://www.sarvagyna.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Sarvagyna</a>.
+                SarvBill is Powered by <a href="https://www.sarvagyna.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Sarvagyna</a>.
             </p>
             <p className="mt-1">
-                This Billing Software is Powered By Sarvagyna for CreatorNex LLc.
+                All rights reserved © Sarvagyna 2025 | © SarvBill v2.0.0.
             </p>
         </footer>
       </div>
@@ -224,7 +224,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6 md:hidden">
             <SidebarTrigger />
              <Link href="/" className="flex items-center gap-2">
-                <Image src="/sarvagyna-logo.png" alt="Sarvagyna" width={120} height={23} className="object-contain h-[23px] w-[120px]" data-ai-hint="logo" />
+                <Image src="/logo-full.png" alt="Sarvagyna" width={120} height={23} className="object-contain h-[23px] w-[120px]" data-ai-hint="logo" />
             </Link>
         </header>
         <main className="flex-1 p-4 md:p-6 lg:p-8">
@@ -232,10 +232,10 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         </main>
         <footer className="p-4 md:p-6 lg:p-8 text-center text-xs text-muted-foreground border-t">
             <p>
-                Sarvagyna Billing is Powered by <a href="https://www.sarvagyna.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Sarvagyna</a>.
+                SarvBill is Powered by <a href="https://www.sarvagyna.com" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Sarvagyna</a>.
             </p>
             <p className="mt-1">
-                This Billing Software is Powered By Sarvagyna for CreatorNex LLc.
+                All rights reserved © Sarvagyna 2025 | © SarvBill v2.0.0.
             </p>
         </footer>
       </SidebarInset>

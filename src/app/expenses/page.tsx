@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { ExpenseForm } from '@/components/ExpenseForm';
 import { ExpensesList } from '@/components/ExpensesList';
+import { ExpenseAnalytics } from '@/components/ExpenseAnalytics';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { 
   Dialog, 
   DialogContent, 
@@ -15,6 +17,7 @@ import {
 import { useToast } from '@/components/ui/use-toast';
 
 export default function ExpensesPage() {
+  const [key, setKey] = useState(0); // Used to force re-render of components
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const { toast } = useToast();
 
@@ -31,9 +34,9 @@ export default function ExpensesPage() {
 
       // Close the dialog
       setIsResetDialogOpen(false);
-
-      // Optionally, you could force a re-render of the ExpensesList
-      // by using a state or key prop
+      
+      // Force re-render of components
+      setKey(prev => prev + 1);
     } catch (error) {
       console.error('Error resetting expenses:', error);
       toast({
@@ -55,15 +58,28 @@ export default function ExpensesPage() {
           Reset All Expenses
         </Button>
       </div>
-      
-      <div className="grid md:grid-cols-2 gap-8">
-        <div>
-          <ExpenseForm />
-        </div>
-        <div>
-          <ExpensesList />
-        </div>
-      </div>
+
+      <Tabs defaultValue="manage" className="space-y-4">
+        <TabsList>
+          <TabsTrigger value="manage">Manage Expenses</TabsTrigger>
+          <TabsTrigger value="analytics">Analytics</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="manage" className="space-y-4">
+          <div className="grid lg:grid-cols-2 gap-8">
+            <div className="space-y-4">
+              <ExpenseForm key={`form-${key}`} onExpenseAdded={() => setKey(prev => prev + 1)} />
+            </div>
+            <div className="space-y-4">
+              <ExpensesList key={`list-${key}`} />
+            </div>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="analytics">
+          <ExpenseAnalytics key={`analytics-${key}`} />
+        </TabsContent>
+      </Tabs>
 
       {/* Reset Confirmation Dialog */}
       <Dialog 

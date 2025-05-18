@@ -1,8 +1,7 @@
-
 "use client"
 
 import { TrendingUp } from "lucide-react"
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Legend, ResponsiveContainer } from "recharts"
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Legend } from "recharts"
 
 import {
   ChartContainer,
@@ -37,35 +36,33 @@ export function MonthlyTransactionsChart({ data, currency }: MonthlyTransactionC
   
   return (
     <ChartContainer config={chartConfig} className="min-h-[300px] w-full">
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart data={data} margin={{ top: 5, right: 20, left: -20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} />
-          <XAxis
-            dataKey="month"
-            tickLine={false}
-            tickMargin={10}
-            axisLine={false}
-            stroke="hsl(var(--muted-foreground))"
-            fontSize={12}
-          />
-          <YAxis
-            tickLine={false}
-            axisLine={false}
-            stroke="hsl(var(--muted-foreground))"
-            fontSize={12}
-            tickFormatter={(value) => formatCurrency(value, currency).replace(/\.00$/, '')} // Simplify for axis
-          />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent 
-                        indicator="dashed" 
-                        formatter={(value) => formatCurrency(Number(value), currency)} 
-                      />}
-          />
-          <Legend />
-          <Bar dataKey="totalAmount" fill="var(--color-totalAmount)" radius={4} name="Total Amount" />
-        </BarChart>
-      </ResponsiveContainer>
+      <BarChart data={data} margin={{ top: 5, right: 20, left: -20, bottom: 5 }} width={1000} height={300}>
+        <CartesianGrid strokeDasharray="3 3" vertical={false} />
+        <XAxis
+          dataKey="month"
+          tickLine={false}
+          tickMargin={10}
+          axisLine={false}
+          stroke="hsl(var(--muted-foreground))"
+          fontSize={12}
+        />
+        <YAxis
+          tickLine={false}
+          axisLine={false}
+          stroke="hsl(var(--muted-foreground))"
+          fontSize={12}
+          tickFormatter={(value) => formatCurrency(value, currency).replace(/\.00$/, '')} // Simplify for axis
+        />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent 
+                      indicator="dashed" 
+                      formatter={(value) => formatCurrency(Number(value), currency)} 
+                    />}
+        />
+        <Legend />
+        <Bar dataKey="totalAmount" fill="var(--color-totalAmount)" radius={4} name="Total Amount" />
+      </BarChart>
     </ChartContainer>
   )
 }

@@ -1,4 +1,3 @@
-
 import { z } from 'zod';
 
 export const invoiceItemSchema = z.object({
@@ -114,6 +113,12 @@ export interface SavedInvoice extends InvoiceFormValues {
   totalAmount: number;
   status: InvoiceStatus; 
   calculatedTotals: CalculatedAmounts;
+  customColors?: {
+    primaryColor?: string;
+    secondaryColor?: string;
+    textColor?: string;
+    backgroundColor?: string;
+  };
 }
 
 export type TransactionStatus = 'Paid' | 'Pending' | 'Failed';

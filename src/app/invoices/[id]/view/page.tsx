@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from 'react';
@@ -75,6 +74,9 @@ export default function ViewInvoicePage() {
     subtotal: 0, discountAmount: 0, taxableAmount: 0, taxAmount: 0, total: 0,
   };
 
+  // Extract custom colors from the saved invoice, if available
+  const customColors = invoiceData.customColors || undefined;
+
   return (
     <div className="space-y-6 max-w-4xl mx-auto">
       <div className="flex justify-between items-center">
@@ -89,6 +91,7 @@ export default function ViewInvoicePage() {
             invoiceData={invoiceData} 
             calculatedTotals={calculatedTotals} 
             invoiceElementId={INVOICE_PREVIEW_ID_VIEW} 
+            customColors={customColors}
           />
         </CardContent>
       </Card>

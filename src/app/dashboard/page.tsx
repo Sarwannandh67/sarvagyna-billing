@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useState } from "react";
@@ -313,7 +312,7 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="flex flex-col sm:flex-row gap-4 items-center">
             <Image 
-              src="/sarvagyna-logo.png" 
+              src="/logo-full.png" 
               alt="Sarvagyna Logo" 
               width={250} 
               height={160}

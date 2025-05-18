@@ -89,16 +89,24 @@ export function ExpensesList() {
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-card rounded-lg border shadow-md p-6 dark:bg-card/90 dark:border-border/50 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-primary/10 -z-10" />
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold">Expenses List</h2>
-        <div className="text-lg font-semibold">
-          Total: ${totalExpenses.toFixed(2)}
+        <h2 className="text-2xl font-bold bg-gradient-to-br from-primary to-primary/80 bg-clip-text text-transparent">Expenses List</h2>
+        <div className="text-lg font-semibold px-4 py-1 bg-primary/10 rounded-full">
+          Total: <span className="text-primary">₹{totalExpenses.toFixed(2)}</span>
         </div>
       </div>
       
       {expenses.length === 0 ? (
-        <p className="text-center text-gray-500">No expenses found</p>
+        <div className="text-center py-8">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="mx-auto mb-4 text-muted-foreground/50">
+            <path d="M21 8v13H3V8"/>
+            <path d="M1 3h22v5H1z"/>
+            <path d="M10 12h4"/>
+          </svg>
+          <p className="text-muted-foreground/70">No expenses found</p>
+        </div>
       ) : (
         <Table>
           <TableHeader>
@@ -113,8 +121,18 @@ export function ExpensesList() {
           <TableBody>
             {expenses.map((expense) => (
               <TableRow key={expense.id}>
-                <TableCell>{expense.title}</TableCell>
-                <TableCell>${parseFloat(expense.amount).toFixed(2)}</TableCell>
+                <TableCell>
+                  <div className="space-y-1">
+                    <h3 className="font-semibold text-foreground/90">{expense.title}</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary/90">{expense.category}</span>
+                      {expense.description && (
+                        <p className="text-sm text-muted-foreground">{expense.description}</p>
+                      )}
+                    </div>
+                  </div>
+                </TableCell>
+                <TableCell>₹{parseFloat(expense.amount).toFixed(2)}</TableCell>
                 <TableCell>{expense.category}</TableCell>
                 <TableCell>
                   {new Date(expense.date).toLocaleDateString()}
@@ -153,12 +171,12 @@ export function ExpensesList() {
             <DialogHeader>
               <DialogTitle>Expense Details</DialogTitle>
             </DialogHeader>
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div>
                 <strong>Title:</strong> {selectedExpense.title}
               </div>
               <div>
-                <strong>Amount:</strong> ${parseFloat(selectedExpense.amount).toFixed(2)}
+                <strong>Amount:</strong> ₹{parseFloat(selectedExpense.amount).toFixed(2)}
               </div>
               <div>
                 <strong>Category:</strong> {selectedExpense.category}
